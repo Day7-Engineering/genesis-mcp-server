@@ -28,7 +28,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ query, limit = 20 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/ideas/search?q=${encodeURIComponent(query)}&limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings/search?query=${encodeURIComponent(query)}&limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -50,7 +50,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ query, limit = 20 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/philosophy/search?q=${encodeURIComponent(query)}&limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings/search?query=${encodeURIComponent(query)}&limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -72,7 +72,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ query, limit = 10 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/conversations/search?q=${encodeURIComponent(query)}&limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings/search?query=${encodeURIComponent(query)}&limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -94,7 +94,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ name, limit = 30 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/search/universal?q=${encodeURIComponent(name)}&limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings/search?query=${encodeURIComponent(name)}&limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -116,7 +116,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ query, limit = 50 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/search/universal?q=${encodeURIComponent(query)}&limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings/search?query=${encodeURIComponent(query)}&limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -139,7 +139,7 @@ export class MyMCP extends McpAgent {
 			{},
 			async () => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/ideas/priority/P0?limit=50`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings?limit=50`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -158,7 +158,7 @@ export class MyMCP extends McpAgent {
 			{},
 			async () => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/breakthroughs?limit=50`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings?limit=50`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -179,7 +179,7 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ limit = 20 }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/philosophy/recent?limit=${limit}`);
+					const response = await fetch(`${FORGE_API}/genesis/learnings?limit=${limit}`);
 					const data = await response.json();
 					return {
 						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
@@ -204,14 +204,9 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ cypher }) => {
 				try {
-					const response = await fetch(`${FORGE_API}/genesis/neo4j/query`, {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ query: cypher }),
-					});
-					const data = await response.json();
+					// Neo4j direct queries not yet available through API
 					return {
-						content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
+						content: [{ type: "text", text: `Neo4j query: ${cypher}\n\nNote: Direct Cypher queries are being connected. Use search tools instead.` }],
 					};
 				} catch (error) {
 					return {
