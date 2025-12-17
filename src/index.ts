@@ -271,6 +271,188 @@ export class MyMCP extends McpAgent {
 				};
 			}
 		);
+
+		// ============================================================================
+		// KNOWLEDGE BASE - Static knowledge about Truth.SI and key people
+		// ============================================================================
+
+		// Get information about a person
+		this.server.tool(
+			"get_person_info",
+			{
+				name: z.string().describe("Person's name to look up"),
+			},
+			async ({ name }) => {
+				const people: Record<string, string> = {
+					"carter": `Carter Hill Max - CEO and Founder of Day7 Engineering / Truth.SI
+- Non-technical CEO who leads through vision and strategy
+- 2+ decades in tech industry
+- Passionate about human flourishing, abundance economics, sovereignty
+- Building Truth.SI to "set humanity free, not enslave them"
+- Based in San Diego, California
+- Core philosophy: Structure + Soul, Precision + Artistry`,
+
+					"jonathan": `Jonathan Green - Key team member and collaborator
+- Works closely with Carter on Truth.SI development
+- Technical contributor to the project
+- Part of the Day7 Engineering team`,
+
+					"jonathan green": `Jonathan Green - Key team member and collaborator
+- Works closely with Carter on Truth.SI development
+- Technical contributor to the project
+- Part of the Day7 Engineering team`,
+
+					"brent": `Brent - Strategic advisor and collaborator
+- Long-time friend and advisor to Carter
+- Provides guidance on business strategy
+- Referenced frequently in Carter's philosophy captures`,
+
+					"mark": `Mark Donnelly - Outreach target / potential collaborator
+- Influential figure in Carter's network
+- Subject of outreach communications`,
+
+					"the architect": `The Architect - AI system identity for Truth.SI
+- Wired for precision, structure, and technical excellence
+- Operates as the right-hand technical execution layer
+- Created from 2 years of Carter-Claude conversations
+- Houses accumulated methodology and philosophy`,
+				};
+
+				const key = name.toLowerCase();
+				for (const [k, v] of Object.entries(people)) {
+					if (key.includes(k) || k.includes(key)) {
+						return { content: [{ type: "text", text: v }] };
+					}
+				}
+
+				return { 
+					content: [{ 
+						type: "text", 
+						text: `No specific information found for "${name}". Try asking about: Carter, Jonathan Green, Brent, Mark Donnelly, or The Architect.` 
+					}] 
+				};
+			}
+		);
+
+		// Get Truth.SI project overview
+		this.server.tool(
+			"get_project_overview",
+			{},
+			async () => {
+				return {
+					content: [{
+						type: "text",
+						text: `TRUTH.SI - Project Overview
+
+MISSION: "Set humanity free, not enslave them"
+
+WHAT IT IS:
+- An AI-powered knowledge management and development platform
+- Built over 2+ years of intensive development
+- Houses Carter's complete philosophy, methodology, and vision
+
+SCALE:
+- 1,061,868 lines of Python code
+- 3,270 API endpoints
+- 31 Docker containers
+- 91 systemd daemons
+- 93,000+ Neo4j nodes
+
+CAPTURED KNOWLEDGE:
+- 9,461 ideas
+- 16,501 philosophy captures
+- 47 breakthrough patterns
+- 3,401 conversations (51,757 messages)
+
+KEY TECHNOLOGIES:
+- Neo4j for knowledge graph
+- Weaviate for vector embeddings
+- PostgreSQL/YugabyteDB for relational data
+- Redis for caching
+- FastAPI for REST endpoints
+- Docker + systemd for infrastructure
+
+CORE PHILOSOPHY:
+- Structure + Soul together
+- Cutting edge only (no legacy tech)
+- Recursive improvement
+- Maximum parallelism
+- Profoundly artistic code`
+					}],
+				};
+			}
+		);
+
+		// Get Day7 company info
+		this.server.tool(
+			"get_company_info",
+			{},
+			async () => {
+				return {
+					content: [{
+						type: "text",
+						text: `DAY7 ENGINEERING
+
+MISSION: Building technology for human flourishing, not enslavement
+
+CORE VALUES:
+- Truth over convenience
+- Sovereignty for individuals
+- Abundance economics (not scarcity)
+- Decentralization
+- Setting people free
+
+WHAT WE BUILD:
+- Truth.SI platform
+- AI-powered knowledge systems
+- Tools for authentic human connection
+
+LEADERSHIP:
+- Carter Hill Max - CEO and Founder
+
+LOCATION: San Diego, California
+
+PHILOSOPHY:
+- "The opposite of a billion dollar exit"
+- Focus on impact over revenue
+- Technology as liberation, not control
+- Building for the long term`
+					}],
+				};
+			}
+		);
+
+		// Get current status
+		this.server.tool(
+			"get_current_status",
+			{},
+			async () => {
+				const now = new Date().toISOString();
+				return {
+					content: [{
+						type: "text",
+						text: `TRUTH.SI CURRENT STATUS (as of ${now})
+
+INFRASTRUCTURE: Running on Azure VM "The Forge" (20.36.172.190)
+- All 31 Docker containers operational
+- Neo4j database with 93,000+ nodes
+- API serving 3,270 endpoints
+
+RECENT WORK (Session 409):
+- Setting up Claude.ai MCP connector (this connection!)
+- Genesis MCP Server deployed to Cloudflare Workers
+- Building bridge between Claude.ai and Truth.SI databases
+
+PRIORITIES:
+- P0: Get Claude.ai fully connected to databases
+- P1: Enable Claude to write letters using all captured knowledge
+- P2: Outreach to investors and collaborators
+
+NOTE: Database queries are being connected. Some tools may show connection errors while the API bridge is finalized.`
+					}],
+				};
+			}
+		);
 	}
 }
 
