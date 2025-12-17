@@ -5,7 +5,7 @@ import { z } from "zod";
 // Truth.SI Genesis MCP Server
 // Connects Claude.ai to Truth.SI databases via the Forge API
 
-const FORGE_API = "http://20.36.172.190:8000";
+const FORGE_API = "http://20.36.172.190:8000/api/v1";
 
 // Define our MCP agent with Truth.SI tools
 export class MyMCP extends McpAgent {
